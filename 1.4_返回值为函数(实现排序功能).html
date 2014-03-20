@@ -1,0 +1,25 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<titl>1.4_返回值为函数(实现排序功能)</title>
+		<meta name="author" content="cshuig" />
+
+		<script type="text/javascript">
+			//按数字进行排序
+			function sortByNum(a,b){
+				return a-b;
+			}
+			var as = [1,2,51,99,121,192];
+			//对于js而言，默认是按照字符串来进行排序的；sort()函数看javascript的api
+			as.sort(sortByNum);
+			alert(as);
+		</script>
+	</head>
+	
+	<body>
+		
+
+	</body>
+</html> 

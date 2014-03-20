@@ -1,0 +1,98 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+		<style type="text/css">
+			* {
+				margin:0px;
+				padding:0px;
+			}
+			
+			#fuck_prototype {
+				width: 1000px;
+				height:100%;
+				position:absolute;
+				left: 50%;
+				margin-left: -500px;
+				margin-top: 10px;
+				padding:10px;
+			}
+
+			#fuck_prototype span{
+				font-size: 20px;
+				color: #999911;
+				margin-bottom: 15px;
+			}
+		</style>
+		<script type="text/javascript">
+
+			/*javascript实现继承的：第一种方式：基于原型链的方式*/
+			function Parent(){
+				this.pValue = "parent";
+			}
+			Parent.prototype.pp = "ok";
+			Parent.prototype.showParentValue = function(){
+				alert(this.pValue);
+			}
+
+			function Child(){
+				this.cValue = "child";
+			}
+
+			/*让Child的原型链指向Parent对象,也就等于完成了一次：继承
+			注意内存模型
+			* 使用原型链需要注意的第一个问题
+			*/
+
+			/*在使用原型链进行继承，一定要注意以下问题：
+			1、不能在设定了原型链后，再重新为原型链赋值
+			2、必须要在原型链赋值之后才能添加或覆盖方法*/
+
+			Child.prototype = new Parent();
+
+			/*如果以下原型写在new Parent()之前，那么下次原型链就会被重新写掉，赋值的对象就不存在新的原型对象中*/
+			Child.prototype.showChildValue = function(){
+				alert(this.cValue);
+			}
+
+			Child.prototype.showParentValue = function(){
+				alert("覆盖了父类的showParentValue()方法");
+			}
+
+			/*当执行了下面这句话之后，意味着Child的原型又重写了
+			这样就不存在任何的继承关系
+			Child.prototype = {
+				showChildValue:function(){
+					alert(this.cValue);
+				}
+			}
+			*/
+			var c = new Child();
+			c.showChildValue();
+			c.showParentValue();
+			alert(c.pp);
+
+			/*使用原型链继承，最大的缺点就是无法从子类中调用父类的构造函数
+			这样就没有办法把子类中的属性赋值给父类
+			第二个缺点就是：如果父类中有引用类型，此时这个引用类会添加到子类的原型中
+			当第一个对象修改了这个引用之后，其他对象的引用会同时被修改*/
+
+			c.color.push("red");
+			var c2 = new Child();
+			alert(c.color);
+			alert(c2.color);//被修改为： red
+		</script>
+
+	</head>
+	
+	<body>
+		<div id="fuck_prototype">
+			<span>原型重写存在的问题：</span><br/><br/>
+			<div><img src="image/原型重写存在的问题.jpg"></div>
+		</div>
+	</body>
+	
+</html> 

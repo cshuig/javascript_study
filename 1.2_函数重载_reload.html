@@ -1,0 +1,52 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<titl>1.2_函数的重载</title>
+		<meta name="author" content="cshuig" />
+
+		<script type="text/javascript">
+			/*function sum(num1,num2){
+				return num1+num2;
+			}
+			function sum(num1){
+				return num1+100;
+			}*/
+
+			/*函数就是一个对象(特殊的对象)以上定义的两个函数实际的形式如下：*/
+			var sum = function(num1,num2){
+					return num1+num2;
+			}
+			var sum = function(num1){
+					return num1+100;
+			}
+			alert(sum(10,20));
+			alert(sum(10))
+			/*
+			以上写法，会导致第一个sum失效，原因是sum从第一块空间移到第二块空间，第一块空间变成垃圾空间
+			特别指出：函数的参数和调用没有关系，如果函数只有一个参数，但是却传入了两个参数，仅仅只会匹 配一个
+			所以在js中:函数不存在重载*/
+			
+			/*函数有如下一种定义方式：
+			前面几个都是参数，最后一个参数是 函数体(要执行的代码),这些参数必须是字符串
+			下面函数的实际形式为：
+			function fn(num1,num2){
+				alert(num1+num2);
+			}
+			或者
+			var fn = function(num1,num2){
+				alert(num1+num2);
+			}
+			*/
+			var fn = new Function("num1","num2","alert('fun:' + (num1+num2))");
+			fn(10,20);
+
+		</script>
+	</head>
+	
+	<body>
+		
+
+	</body>
+</html>

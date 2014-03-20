@@ -1,0 +1,74 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+		<style type="text/css">
+			* {
+				margin:0px;
+				padding:0px;
+			}
+			
+			#fuck_prototype {
+				width: 1000px;
+				height:100%;
+				position:absolute;
+				left: 50%;
+				margin-left: -500px;
+				margin-top: 10px;
+				padding:10px;
+			}
+
+			#fuck_prototype span{
+				font-size: 20px;
+				color: #999911;
+				margin-bottom: 15px;
+			}
+		</style>
+		<script type="text/javascript">
+			
+
+			function Parent(_name){
+				this.color = ["red","blue"];
+				this.name = _name;
+				this.say = function(){
+					alert(this.name);
+				}
+			}
+
+			/*由于使用伪造的方式，不会完成Child指向Parent原型
+			所以say方法不存在Child中
+			解决办法是，将这个方法放置到Parent中，使用this来创建
+			但是此时每个对象中又存在say，这样空间占用太大，
+			所以也不会单独使用伪造的方式实现继承
+			Parent.prototype.say = function(){
+				alert(this.name);
+			}
+			*/
+			function Child(_name, _age){
+				this.age = _age;
+				//使用伪造的方式就可以把子类的构造函数参数传递到父类中
+				Parent.call(this,_name);
+			}
+			
+			var c1 = new Child("cshuig", 12);
+			var c2 = new Child("老K", 22);
+			alert(c1.name +", "+c1.age);
+			alert(c2.name +", "+c2.age);
+
+			c1.say();
+			c2.say();
+		</script>
+
+	</head>
+	
+	<body>
+		<div id="fuck_prototype">
+			<span>原型重写存在的问题：</span><br/><br/>
+			<div><img src="image/原型重写存在的问题.jpg"></div>
+		</div>
+	</body>
+	
+</html> 

@@ -1,0 +1,86 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+		<style type="text/css">
+			* {
+				margin:0px;
+				padding:0px;
+			}
+			
+			#fuck_prototype {
+				width: 1000px;
+				height:100%;
+				position:absolute;
+				left: 50%;
+				margin-left: -500px;
+				margin-top: 10px;
+				padding:10px;
+			}
+
+			#fuck_prototype span{
+				font-size: 20px;
+				color: #999911;
+				margin-bottom: 15px;
+			}
+		</style>
+		<script type="text/javascript">
+			/*以下样式了通过原型的创建方式：
+				使用基于原型的创建可以将属性和方法设置为对象的专有，
+				不能使用window调用*/
+
+			//第一种状态：原型
+			function Person(){
+
+			}
+			/*
+			*	使用如下方式来编写代码，当属性和方法特别多时，编写起来不是很方便
+				可以通过json的格式来编写
+			*/
+			/*
+				Person.prototype.name = "cshuig";
+				Person.prototype.age = "123";
+				Person.prototype.say = function(){
+					alert(this.name +","+this.age);
+				}
+			*/
+			/*
+			以下方式将会重写原型，而且没有通过Person.prototype来指定
+			由于原型重写，此时的constructor不会在指向Person而是指向Object
+			如果constructor真的比较重要，可以在json中说明原型的指向
+			*
+			* 特别注意：如果把重写放置在new Person()之后，注意内存模型(如图),原型重写的可以能的问题.jpg
+			*
+			*/
+			Person.prototype = {
+				constructor:Person,//手动指定constructor
+				name:"cshuig",
+				age :23,
+				say:function(){
+					alert(this.name +","+this.age);
+				}
+			}
+			var p1 = new Person();
+			Person.prototype.sayFuck = function(){
+				alert(this.name + ":fuck")
+			}
+			p1.say();
+			p1.sayFuck();
+			/*var p2 = new Person();
+			p2.say*/
+			//看p1的构造函数
+			alert(p1.constructor);
+		</script>
+	</head>
+	
+	<body>
+		<div id="fuck_prototype">
+			<span>原型重写存在的问题：</span><br/><br/>
+			<div><img src="image/原型重写存在的问题.jpg"></div>
+		</div>
+	</body>
+	
+</html> 

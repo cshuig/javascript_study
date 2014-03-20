@@ -1,0 +1,33 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+	</head>
+	
+	<body>
+		<div id="person_old"></div>
+		<div id="person_new"></div>
+		
+	</body>
+	<script type="text/javascript">
+		/*函数的属性与函数的内部属性不同*/
+		function fn1(){
+
+		}
+
+		function fn2(num1){
+
+		}
+
+		function fn3(num1,num2){
+
+		}
+		//函数的length就表示该函数所期望的参数个数
+		alert(fn1.length);
+		alert(fn2.length);
+		alert(fn3.length);
+	</script>
+</html> 

@@ -1,0 +1,84 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+		<style type="text/css">
+			* {
+				margin:0px;
+				padding:0px;
+			}
+			
+			#fuck_prototype {
+				width: 1000px;
+				height:100%;
+				position:absolute;
+				left: 50%;
+				margin-left: -500px;
+				margin-top: 10px;
+				padding:10px;
+			}
+		</style>
+		<script type="text/javascript">
+			/*以下样式了通过原型的创建方式：
+				使用基于原型的创建可以将属性和方法设置为对象的专有，
+				不能使用window调用*/
+
+			//第一中状态：原型
+			function Person(){
+
+			}
+			/*第二种状态：通过Person.prototype.xxx为原型设置值，这些属性和方法都是设置在Person的原型中的*/
+			Person.prototype.name = "cshuig";
+			Person.prototype.age = "123";
+			Person.prototype.say = function(){
+				alert(this.name +","+this.age);
+			}
+			/*第三中状态：创建了一个对象之后，
+					会在对象中有一个属性：_prop_  这个属性是不能被访问的
+					当使用对象调用的时候，首先会在对象的内部找是否有这个属性，
+					如果没有会通过_prop_去原型中找属性，
+					所以当调用p1.say()，在自己的空间中不存在这个方法，就会去原型中寻找，
+			*/
+			var p1 = new Person();
+			p1.say();
+			//window.say();//undefang
+			//以下方法可以检测出p1是否有_prop_指向Person的原型
+			alert(Person.prototype.isPrototypeOf(p1));
+
+			//第四中状态
+			var p2 = new Person();
+			/*这步实际上是在对象自己内部空间中设置了一个name的属性，并且不会替换原型中的name值，在调用跑p2.say()的时候，由于对象内部有name属性，所以不会通过_prop_去原型中寻找
+			*/
+			p2.name = "老K";
+			p2.say();
+			p1.say();
+			alert(Person.prototype.isPrototypeOf(p2));
+
+			//检测某个对象的constructor
+			alert("检测p1对象是否指向constructor:"+p1.constructor==Person);
+
+			//检测某个属性是否是自己的
+			alert("p1有自己的name属性:"+p1.hasOwnProperty("name"));//false
+			alert("p2有自己的name属性:"+p2.hasOwnProperty("name"))//true
+
+			//可以通过delete删除空间中的属性
+			delete p2.name;
+			p2.say();//cshuig，123
+
+			//检测某个对象在原型或者自己的空间中是否有某个属性：通过in来检测
+			alert("name" in p1);//true
+			alert("name" in p2);//true
+			alert("address" in p1);//false
+		</script>
+	</head>
+	
+	<body>
+		<div id="fuck_prototype">
+			<div><img src="image/原型理解1.jpg"></div>
+		</div>
+	</body>
+	
+</html> 

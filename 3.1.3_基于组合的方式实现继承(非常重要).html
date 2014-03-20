@@ -1,0 +1,75 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+		<style type="text/css">
+			* {
+				margin:0px;
+				padding:0px;
+			}
+			
+			#fuck_prototype {
+				width: 1000px;
+				height:100%;
+				position:absolute;
+				left: 50%;
+				margin-left: -500px;
+				margin-top: 10px;
+				padding:10px;
+			}
+
+			#fuck_prototype span{
+				font-size: 20px;
+				color: #999911;
+				margin-bottom: 15px;
+			}
+		</style>
+		<script type="text/javascript">
+			/*组合的实现方式是：
+				1、属性通过伪造的方式实现
+				2、方法通过原型链的方式实现*/
+			function Parent(_name){
+				this.name = _name;
+				this.color = ["red","blue"];
+			}
+
+			//往Parent的原型中添加一个say方法
+			Parent.prototype.ps = function(){
+				alert(this.name +"["+this.color+"]");
+			}
+
+			function Child(_name, _age){
+				this.age = _age;
+				//已经完成伪造
+				Parent.call(this,_name);
+			}
+
+			//重写Child的原型链,此时Child指向新的原型链Child prototype，且带有color和name属性
+			Child.prototype = new Parent();//指向Parent的原型链
+
+			Child.prototype.say = function(){
+				alert(this.name + ","+this.age+"["+this.color+"]");
+			}
+
+			var c1 = new Child("cshuig", 22);
+			c1.color.push("green");
+			c1.say();
+			c1.ps();
+			var c2 = new Child("老K", 33);
+			c2.say();
+			c2.ps();
+		</script>
+
+	</head>
+	
+	<body>
+		<div id="fuck_prototype">
+			<span>基于组合的方式实现继承：</span><br/><br/>
+			<div><img src="image/基于组合的方式实现继承.jpg"></div>
+		</div>
+	</body>
+	
+</html> 

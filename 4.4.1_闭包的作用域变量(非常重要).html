@@ -1,0 +1,69 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+		<style type="text/css">
+			* {
+				margin:0px;
+				padding:0px;
+			}
+			
+			#fuck_prototype {
+				width: 1000px;
+				height:100%;
+				position:absolute;
+				left: 50%;
+				margin-left: -500px;
+				margin-top: 10px;
+				padding:10px;
+			}
+
+			#fuck_prototype span{
+				font-size: 20px;
+				color: #999911;
+				margin-bottom: 15px;
+			}
+		</style>
+		<script type="text/javascript">
+			
+			function fns(){
+				//创建一个数组
+				var array = new Array()
+				//i这个变量是保存在fns这个作用域中
+				/*以下写法在调用的时候，i的值永远是：10
+				for(var i=0;i<10;i++){
+					array[i] = function(){return i}
+				}*/
+
+				for(var i=0;i<10;i++){
+					var tf = function(num){
+						array[num] = function(){
+							return num;
+						}
+					}
+					tf(i);
+				}
+				return array;
+			}
+
+			var fns1 = fns();
+			for(var i=0;i<10;i++){
+				/*此时通过闭包来调用所有函数，当输出i的时候回去上一级的作用域中查找
+				这个时候i的值已经是：10，所以会连续输出了10*/
+				document.write(fns1[i]() + "<br/>");//输出全部都是：10
+			}
+		</script>
+
+	</head>
+	
+	<body>
+		<div id="fuck_prototype">
+			<span>函数调用的作用域链：</span><br/><br/>
+			<div><img src="image/函数调用的作用域链.jpg"></div>
+		</div>
+	</body>
+	
+</html> 

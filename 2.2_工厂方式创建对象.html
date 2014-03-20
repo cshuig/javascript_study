@@ -1,0 +1,41 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+	</head>
+	
+	<body>
+		<div id="person_old"></div>
+		<div id="person_new"></div>
+		
+	</body>
+	<script type="text/javascript">
+
+		/*通过工厂的方式来创建Person对象，
+		在createPerson中创建一个对象
+		然后为这个对象设置相应的属性和方法
+		最后返回这个对象*/
+		function createPerson(_name,_age){
+			var obj = new Object();
+			obj.name = _name;
+			obj.age = _age;
+			obj.say = function(){
+				alert(this.name +","+ this.age);
+			}
+			return obj;
+		}
+		/*
+			使用工厂的方式，虽然有效的解决类的问题，但是依然存在另外一问题
+			无法检查对象p1和p2的数据类型
+		*/
+		var p1 = createPerson("cshuig",100);
+		var p2 = createPerson("老K",10);
+		p1.say();
+		p2.say();
+
+
+	</script>
+</html> 

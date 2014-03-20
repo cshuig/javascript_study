@@ -1,0 +1,31 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+	</head>
+	
+	<body>
+		<div id="person_old"></div>
+		<div id="person_new"></div>
+		
+	</body>
+	<script type="text/javascript">
+
+		/*
+		   在js中并不存在类，所以可以直接通过Object来创建对象
+		   但是使用如下方式创建，带来最大的问题是,由于没有类的约束
+		   无法实现对象的复用，并且没有一种约定，在操作时会带来问题
+		*/
+
+		var person = new Object();
+		//为person对象添加属性
+		person.name = "cshuig";
+		person.age = "10";
+		person.say = function(){
+			alert(this.name + "," + this.age);
+		}
+	</script>
+</html> 

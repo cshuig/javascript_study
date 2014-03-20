@@ -1,0 +1,44 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.5.2_函数的内部属性this</title>
+		<meta name="author" content="cshuig" />
+	</head>
+	
+	<body>
+		<div id="person_old"></div>
+		<div id="person_new"></div>
+		
+	</body>
+	<script type="text/javascript">
+		/*当需要创建一个类的时候，设置类的属性和方法，需要通过使用this关键字来引用
+		但是特别需要注意：this关键字在调用的时候会根据不同的调用对象变的不同*/
+		var color = "red";
+
+		function showColor(){
+			alert(this.color);
+		}
+
+		function Circle(color){
+			this.color = color;
+			this.show = showColor;
+		}
+
+		var c = new Circle("green");
+		//使用c来调用show方法，等于调用了showColor()方法
+		//此时的this是属于c的，所以color就是green
+		c.show();//green
+
+		/*此时调用的对象等于window，showColor的this就是window，
+		所以就会找window.color*/
+		showColor();//red
+
+		/*使用call和apply的方式调用*/
+		showColor.call(this);//red
+		showColor.call(c);	 //green
+		/*使用以上方式调用，对象中可以不需要定义方法了：Circle --> this.show = showColor;
+		这就是call和apply的一种运用*/
+	</script>
+</html> 

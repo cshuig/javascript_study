@@ -1,0 +1,51 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+	</head>
+	
+	<body>
+		<div id="person_old"></div>
+		<div id="person_new"></div>
+		
+	</body>
+	<script type="text/javascript">
+		/*将行为设置为全局的行为，可以降低内存空间的占用率
+		如果将所有的方法都设计为全局函数的时候，
+		这个函数就可以被window调用，此时就违法对象的：封装性
+		而且如果某个对象有大量的方法，就会导致整改代码中充斥着大量的全局函数
+		这样将不利用开发*/
+		function say(){
+			alert(this.name +","+ this.age);
+		}
+		/*通过构造函数的方式创建，和基于工厂的创建类似
+		最大的区别就是函数的名称就是类的名称，按照java的约定，第一个字母大写。
+		使用构造函数创建是，在函数内部是通过this关键字来完成属性的定义及赋值*/
+		function Person(_name,_age){
+			this.name = _name;
+			this.age = _age;
+			//以下方式带来的问题是所有的对象都会为该行为分配空间
+			/*
+			this.say = function(){
+				alert(this.name +","+ this.age);
+			}*/
+
+			this.say = say;
+		}
+		var p1 = new Person("cshuig","123");
+		var p2 = new Person("老K","123");
+		p1.say();
+		p2.say();
+
+		//使用构造函数的方式可以以下方式来检查对象的类型：
+		alert(p1 instanceof Person);
+
+		/*使用构造函数所带来的问题
+		1、都会存在一个方法的拷贝，
+		2、如果对象的行为有很多的话，空间的占用率就会大大增加
+		解决办法：可以将函数放到全局变量中定义，这样可以让类中的行为指向同一个函数*/
+	</script>
+</html> 

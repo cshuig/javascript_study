@@ -1,0 +1,45 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.5.1_函数的内部属性arguments</title>
+		<meta name="author" content="cshuig" />
+	</head>
+	
+	<body>
+		<div id="person_old"></div>
+		<div id="person_new"></div>
+		
+	</body>
+	<script type="text/javascript">
+		function say(num){
+			/*在函数对象中有一个属性叫做：arguments,通过这个属性可以获取对应的参数
+			这个属性是一个：数组，其实就是传递进来的参数*/
+			alert(arguments.length);
+			for(var i=0;i<arguments.length;i++){
+				alert(arguments[i]);
+			}
+		}
+		/*在arguments这个对象中有一个callee的方法，arguments.callee(arg)可以反向的调用*/
+		say(1,2,3);
+
+		//输出阶乘(4*3*2*1=24)，采用递归
+		function factorial(num){
+			if(num<=1) 
+				return 1;
+			else
+				//此时和函数名耦合在一起 
+			//else return num*factorial(num-1)
+				//以下就实现了函数名的解耦和，在js中通常就是使用这种方式做递归 
+				return num * arguments.callee(num-1);
+		}
+
+		var cf = factorial;
+		alert(cf(3));
+		factorial = null; //将factorial函数指向空
+		//此时由于cf这个函数依然使用factorial这个名称来调用，但是factorial已经指向了null，所以会报错
+		//如上情况就需要使用arguments.callee方法来调用
+		alert(cf(3));
+	</script>
+</html> 

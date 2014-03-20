@@ -1,0 +1,71 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+		<style type="text/css">
+			* {
+				margin:0px;
+				padding:0px;
+			}
+			
+			#fuck_prototype {
+				width: 1000px;
+				height:100%;
+				position:absolute;
+				left: 50%;
+				margin-left: -500px;
+				margin-top: 10px;
+				padding:10px;
+			}
+
+			#fuck_prototype span{
+				font-size: 20px;
+				color: #999911;
+				margin-bottom: 15px;
+			}
+		</style>
+		<script type="text/javascript">
+
+			/*为了解决原型所带来的问题，此处需要通过组合 构造函数和原型 来实现对象的创建
+			1、将属性在构造函数中定义，
+			2、将方法在原型中定义
+			这种有效集合了两者的优点，是目前最为常用的一种方式*/
+
+			function Person(_name,_age,_friends){
+				//属性在构造函数中定义
+				this.name = _name;
+				this.age = _age;
+				this.friends = _friends;
+			}
+			
+			Person.prototype = {
+				constructor:Person,
+				//方法在原型中定义
+				say:function(){
+					alert(this.name +","+this.age +","+this.friends );
+				}
+			}
+
+			var p1 = new Person("cshuig",123,["老妖","老K"]);
+			p1.say();
+			p1.name = "fuck";
+			p1.friends.push("三号");
+			p1.say();
+
+			var p2 = new Person("giuhsc",321,["老K","老妖"]);
+			p2.say();
+			
+		</script>
+	</head>
+	
+	<body>
+		<div id="fuck_prototype">
+			<span>原型重写存在的问题：</span><br/><br/>
+			<div><img src="image/原型重写存在的问题.jpg"></div>
+		</div>
+	</body>
+	
+</html> 

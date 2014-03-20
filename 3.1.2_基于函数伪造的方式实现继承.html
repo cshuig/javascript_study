@@ -1,0 +1,62 @@
+<!DOCTYPE html PULBIC "-//W3C//DTD HTML 4.01/EN"
+	"http/www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhmtl" lang="en">
+	<head>
+		<meta http=equiv="Content-Type" content="text/html; charset=utr-8" />
+		<title>1.6.1_函数的属性length</title>
+		<meta name="author" content="cshuig" />
+		<style type="text/css">
+			* {
+				margin:0px;
+				padding:0px;
+			}
+			
+			#fuck_prototype {
+				width: 1000px;
+				height:100%;
+				position:absolute;
+				left: 50%;
+				margin-left: -500px;
+				margin-top: 10px;
+				padding:10px;
+			}
+
+			#fuck_prototype span{
+				font-size: 20px;
+				color: #999911;
+				margin-bottom: 15px;
+			}
+		</style>
+		<script type="text/javascript">
+
+			/*javascript实现继承的：第二种方式：基于函数伪造的方式实现继承*/
+			function Parent(){
+				this.color = ["red","blue"];
+			}
+
+			function Child(){
+				/*此时也就等于Child中有了this.color属性，这样也就完成了继承
+				此时使用父类的一个引用修改属性值，并不会影响到其他引用对象
+				见如下：c1 和 c2 输出color属性*/
+				Parent.call(this);
+				//以下这种调用方式，Parent的上下文Parent对象，根本无法实现继承
+				//Parent();
+			}
+			
+			var c1 = new Child();
+			c1.color.push(["green"]);
+			alert(c1.color);
+			var c2 = new Child();
+			alert(c2.color);//c1不会影响到c2的color属性
+		</script>
+
+	</head>
+	
+	<body>
+		<div id="fuck_prototype">
+			<span>原型重写存在的问题：</span><br/><br/>
+			<div><img src="image/原型重写存在的问题.jpg"></div>
+		</div>
+	</body>
+	
+</html> 
